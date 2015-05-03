@@ -24,5 +24,17 @@
     <name>OmniHandler</name>
     <tag-class>taghandlers.OmniHandler</tag-class>
     <body-content>JSP</body-content>
+    <attribute>
+      <name>bootStrapStyle</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
+    <attribute>
+      <name>pageHandlerName</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+      <type>java.lang.String</type>
+    </attribute>
   </tag>
 </taglib>

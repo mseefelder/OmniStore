@@ -1,22 +1,18 @@
 <%-- 
-    Document   : mainmenu
-    Created on : May 2, 2015, 10:44:02 PM
+    Document   : mainpage
+    Created on : May 3, 2015, 9:58:48 AM
     Author     : mseefelder
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
-        <link href="css/omni-template.css" rel="stylesheet">
-        <title>OmniStore</title>
-    </head>
+
+<%@taglib prefix="omniTag" uri="/WEB-INF/tlds/OmniTagLibrary.tld" %>
+
+<omniTag:OmniHandler 
+    bootStrapStyle="omni-template"
+    handlerName="com.mseefelder.omnistore.pageHandlers.mainPageHandler"
+    >
+    
     <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -51,14 +47,5 @@
       </div>
 
     </div><!-- /.container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
   </body>
-</html>
+</omniTag:OmniHandler>>

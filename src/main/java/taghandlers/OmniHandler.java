@@ -17,7 +17,16 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 public class OmniHandler extends BodyTagSupport {
     
-    private String bootstrapStyle;
+    private String bootStrapStyle;
+    private String pageHandlerName;
+    
+    public void setBootStrapStyle(String bootStrapStyle) {
+        this.bootStrapStyle = bootStrapStyle;
+    }
+
+    public void setPageHandlerName(String pageHandlerName) {
+        this.pageHandlerName = pageHandlerName;
+    }
     
     /**
      * Creates new instance of tag handler
@@ -58,7 +67,7 @@ public class OmniHandler extends BodyTagSupport {
 "        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"+
 "        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n" +
 "        <link rel=\"stylesheet\" href=\"css/bootstrap.css\" type=\"text/css\"/>\n" +
-"        <link href=\"css/"+bootstrapStyle+".css\" rel=\"stylesheet\">\n" +
+"        <link href=\"css/"+bootStrapStyle+".css\" rel=\"stylesheet\">\n" +
 "        <title>OmniStore</title>\n" +
 "    </head>"
             );

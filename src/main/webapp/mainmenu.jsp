@@ -17,7 +17,7 @@
         <link href="css/omni-template.css" rel="stylesheet">
         <title>OmniStore</title>
     </head>
-    <body> <!--BodyContent="JSP"-->
+    <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">

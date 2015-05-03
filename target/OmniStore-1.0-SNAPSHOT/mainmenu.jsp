@@ -14,10 +14,10 @@
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/bootstrap.css" type="text/css"/>
-        <link href="css/bootstrap-theme.css" rel="stylesheet">
+        <link href="css/omni-template.css" rel="stylesheet">
         <title>OmniStore</title>
     </head>
-    <body>
+    <body> <!--BodyContent="JSP"-->
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -32,21 +32,22 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="active"><a href="#">Produtos</a></li>
+            <li><a href="#about">Meu Carrinho</a></li>
+            <!--<li><a href="#contact">Contact</a></li>-->
           </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
     <div class="container">
 
-      <div class="bootstrap-theme">
-        <br>
-        <br>
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+      <div class="omni-template">
+        <h1>OmniStore:</h1>
+        <p class="lead">Os melhores preços.<br> Os melhores produtos.</p>
       </div>
 
     </div><!-- /.container -->

@@ -14,6 +14,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>mainmenu.jsp</welcome-file>
+        <welcome-file>mainpage.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

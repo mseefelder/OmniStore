@@ -58,7 +58,6 @@ public class OmniHandler extends BodyTagSupport {
         try {
             JspWriter out = pageContext.getOut();
             out.println(
-            "<%@page contentType=\"text/html\" pageEncoding=\"UTF-8\"%>\n" +
 "<!DOCTYPE html>\n" +
 "<html>\n" +
 "    <head>\n" +
@@ -109,27 +108,36 @@ public class OmniHandler extends BodyTagSupport {
         // out.println("   <blockquote>");
 
         // write the body content (after processing by the JSP engine) on the output Writer
-        bodyContent.writeOut(out);
+        //bodyContent.writeOut(out);
 
         // Or else get the body content as a string and process it, e.g.:
-        //     String bodyStr = bodyContent.getString();
-        //     String result = yourProcessingMethod(bodyStr);
-        //     out.println(result);
-        // TODO: insert code to write html after writing the body content.
-        // e.g.:
-        try {
-            out.println(
-                    "<!-- Bootstrap core JavaScript\n" +
+        String bodyStr = bodyContent.getString();
+        String result = bodyStr.replace("<body>", "<body>"+"<form method=\"GET\" action=\"Controller\">"+
+"<input type=\"hidden\" name=\"pageHandlerName\""+
+"value=\""+pageHandlerName+"\"/>");
+        result = result.replace("</body>", "<!-- Bootstrap core JavaScript\n" +
 "    ================================================== -->\n" +
 "    <!-- Placed at the end of the document so the pages load faster -->\n" +
 "    <script src=\"js/jquery.min.js\"></script>\n" +
 "    <script src=\"js/bootstrap.min.js\"></script>\n" +
 "    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->\n" +
-"    <script src=\"js/ie10-viewport-bug-workaround.js\"></script>"
-            );
-        } catch (IOException ex) {
-            // do something
-        }
+"    <script src=\"js/ie10-viewport-bug-workaround.js\"></script>"+"</body>");
+        out.println(result);
+        // TODO: insert code to write html after writing the body content.
+        // e.g.:
+//        try {
+//            out.println(
+//                    "<!-- Bootstrap core JavaScript\n" +
+//"    ================================================== -->\n" +
+//"    <!-- Placed at the end of the document so the pages load faster -->\n" +
+//"    <script src=\"js/jquery.min.js\"></script>\n" +
+//"    <script src=\"js/bootstrap.min.js\"></script>\n" +
+//"    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->\n" +
+//"    <script src=\"js/ie10-viewport-bug-workaround.js\"></script>"
+//            );
+//        } catch (IOException ex) {
+//            // do something
+//        }
         // clear the body content for the next time through.
         bodyContent.clearBody();
     }

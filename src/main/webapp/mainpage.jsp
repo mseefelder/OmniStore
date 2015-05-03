@@ -10,7 +10,7 @@
 
 <omniTag:OmniHandler 
     bootStrapStyle="omni-template"
-    handlerName="com.mseefelder.omnistore.pageHandlers.mainPageHandler"
+    pageHandlerName="com.mseefelder.omnistore.pageHandlers.mainPageHandler"
     >
     
     <body>
@@ -33,7 +33,7 @@
             <!--<li><a href="#contact">Contact</a></li>-->
           </ul>
           <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
+            <input type="text" name="SEARCH_BOX" class="form-control" value="${SEARCH}" placeholder="Pesquisa...">
           </form>
         </div><!--/.nav-collapse -->
       </div>
@@ -43,9 +43,9 @@
 
       <div class="omni-template">
         <h1>OmniStore:</h1>
-        <p class="lead">Os melhores preços.<br> Os melhores produtos.</p>
+        <p class="lead">Os melhores preços.<br> Os melhores produtos.<br>${EXTRA}</p>
       </div>
 
     </div><!-- /.container -->
   </body>
-</omniTag:OmniHandler>>
+</omniTag:OmniHandler>

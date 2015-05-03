@@ -19,6 +19,18 @@ public class mainPageHandler implements pageHandlerInterface
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
         String jspURL = null;
+        
+        String searchText = request.getParameter("SEARCH_BOX");
+        if(searchText != null || !searchText.isEmpty())
+        {
+            jspURL = "mainpage.jsp";
+            request.setAttribute("EXTRA", searchText);
+        }
+        else
+        {
+            jspURL = "mainpage.jsp";
+        }
         return jspURL;
     }
+    
 }

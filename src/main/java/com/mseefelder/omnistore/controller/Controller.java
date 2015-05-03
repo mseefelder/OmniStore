@@ -49,7 +49,7 @@ public class Controller extends HttpServlet {
         }
         catch (Exception e)
         {
-            request.setAttribute("CONTROLLER_EXCEPTION", e);
+            request.setAttribute("CONTROLLER_EXCEPTION", e+"From: Controller");
             request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }

@@ -11,4 +11,9 @@
 <omniTag:OmniHandler
     pageHandlerName="com.mseefelder.omnistore.pageHandlers.vitrineHandler"
     pageName="Vitrine"> 
+    
+    <body>
+        
+    </body>
+    
 </omniTag:OmniHandler>

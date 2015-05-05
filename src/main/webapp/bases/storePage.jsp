@@ -28,22 +28,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">OmniStore</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <input type="text" class="form-control navbar-right" placeholder="Search...">
+          <a class="navbar-brand" href="#">${EXTRA}</a>
         </div>
       </div>
     </nav>
-
+        
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
+            <li class="active"><a href="#">Categories <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Liquid</a></li>
+            <li><a href="#">Solid</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -58,7 +54,6 @@
               <span class="text-muted">Something else</span>
             </div>
               -->
-              
             <div class="col-md-4 placeholder">
               <img src="pics/coin.png" class="img-responsive" alt="Generic placeholder thumbnail">
               <h4>Label</h4>

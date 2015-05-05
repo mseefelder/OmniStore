@@ -20,21 +20,23 @@ public class mainPageHandler implements pageHandlerInterface
     public String process(HttpServletRequest request, HttpServletResponse response) {
         String jspURL = null;
         
-        /**
-        String searchText = request.getParameter("SEARCH_BOX");
-        if(searchText != null || !searchText.isEmpty())
+        
+        String categoryText = request.getParameter("category");
+        String productText = request.getParameter("product");
+        if(categoryText != null && !categoryText.isEmpty())
         {
-            jspURL = "bases/storePage.jsp";
-            request.setAttribute("EXTRA", searchText);
+            jspURL = "vitrine.jsp";
+            request.setAttribute("EXTRA", categoryText);
+        }
+        else if(productText != null && !productText.isEmpty())
+        {
+            jspURL = "produto.jsp";
+            request.setAttribute("EXTRA", productText);
         }
         else
         {
-            jspURL = "bases/storePage.jsp";
+            jspURL = "vitrine.jsp";
         }
-        * */
-        
-        jspURL = "vitrine.jsp";
-        request.setAttribute("EXTRA", "Teste");
         
         return jspURL;
     }

@@ -10,10 +10,10 @@
 
 <omniTag:OmniHandler
     pageHandlerName="com.mseefelder.omnistore.pageHandlers.mainPageHandler"
-    pageName="Vitrine"> 
+    pageName="vitrine"> 
     
     <body>
-        <omniTag:vitrineTag></omniTag:vitrineTag>
+        <omniTag:vitrineTagHandler>${EXTRA}</omniTag:vitrineTagHandler>
     </body>
     
 </omniTag:OmniHandler>

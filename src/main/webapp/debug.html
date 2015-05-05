@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Vitrine</title>
+    <title>vitrine</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +26,7 @@
     
     <body>
       <form method="GET" action="Controller">
-          <input type="hidden" name="pagehandler" value="com.mseefelder.omnistore.pageHandlers.vitrineHandler">
+          <input type="hidden" name="pageHandlerName" value="com.mseefelder.omnistore.pageHandlers.mainPageHandler">
     <nav class="navbar navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -36,7 +36,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">${EXTRA}</a>
+          <a class="navbar-brand" href="#">OmniStore</a>
         </div>
       </div>
     </nav>
@@ -44,36 +44,30 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Categories <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Liquid</a></li>
-            <li><a href="#">Solid</a></li>
-          </ul>
-        </div>
+<button type="submit" class="btn btn-default" name="category" value="Liquids" style="width:100%;">Liquids</button><button type="submit" class="btn btn-default" name="category" value="Solids" style="width:100%;">Solids</button>        </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Vitrine Principal</h1>
+          <h1 class="page-header">Vitrine</h1>
           <div class="row placeholders">
             
-              <!--
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
+
+<div class="col-md-4 placeholder">
+                <button type="submit" style=" background: url(/pics/apple.jpg); display: inline-block; border-radius: 25%;  max-height: 128px;   max-width: 128px;" class="img-responsive" name="product" value="apple">
+              <h4>apple</h4>
+              <span class="text-muted">20</span>
             </div>
-              -->
             <div class="col-md-4 placeholder">
-              <img src="pics/coin.png" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Coin</h4>
-              <span class="text-muted">1GOLD</span>
+                <button type="submit" style=" background: url(/pics/water.jpg); display: inline-block; border-radius: 25%;  max-height: 128px;   max-width: 128px;" class="img-responsive" name="product" value="water">
+              <h4>water</h4>
+              <span class="text-muted">5</span>
             </div>
-            
+                        
           </div>
           
         </div>
-      </div>
+
+    </div>
     </div>
     </form>
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

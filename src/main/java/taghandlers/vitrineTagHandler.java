@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -23,22 +25,12 @@ import javax.sql.DataSource;
  *
  * @author mseefelder
  */
-public class OmniHandler extends BodyTagSupport {    
-    private String pageName;
-    private String pageHandlerName;
-
-    public void setPageName(String pageName) {
-        this.pageName = pageName;
-    }
-    
-    public void setPageHandlerName(String pageHandlerName) {
-        this.pageHandlerName = pageHandlerName;
-    }
+public class vitrineTagHandler extends BodyTagSupport {
     
     /**
      * Creates new instance of tag handler
      */
-    public OmniHandler() {
+    public vitrineTagHandler() {
         super();
     }
 
@@ -53,40 +45,73 @@ public class OmniHandler extends BodyTagSupport {
      * Method called from doStartTag(). Fill in this method to perform other
      * operations from doStartTag().
      */
-    private void otherDoStartTagOperations() {
-        // TODO: code that performs other operations in doStartTag
-        //       should be placed here.
-        //       It will be called after initializing variables, 
-        //       finding the parent, setting IDREFs, etc, and 
-        //       before calling theBodyShouldBeEvaluated(). 
-        //
-        //       For example, to print something out to the JSP, use the following:
-        //
+    private void otherDoStartTagOperations() {        
         try {
             JspWriter out = pageContext.getOut();
             out.println(
-"<!DOCTYPE html>\n" +
-"<html lang=\"en\">\n" +
-"  <head>\n" +
-"    <meta charset=\"utf-8\">\n" +
-"    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
-"    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->\n" +
-"    <meta name=\"description\" content=\"\">\n" +
-"    <meta name=\"author\" content=\"\">\n" +
-"\n" +
-"    <title>"+pageName+"</title>\n" +
-"\n" +
-"    <!-- Bootstrap core CSS -->\n" +
-"    <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\">\n" +
-"\n" +
-"    <!-- Custom styles for this template -->\n" +
-"    <link href=\"css/dashboard.css\" rel=\"stylesheet\">\n" +
-"    </head>"
+"<div class=\"col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main\">\n" +
+"          <h1 class=\"page-header\">Vitrine</h1>\n" +
+"          <div class=\"row placeholders\">\n" +
+"            \n"
             );
         } catch (IOException ex) {
             // do something
         }
+    }
+    
+    public String productDisplay(String productCategory) throws NamingException, SQLException
+    {
+        String displayCode = "";
+        
+        DataSource ds = getOmniBase();
+        Connection connection = ds.getConnection();
+ 
+        if (connection == null)
+        {
+            throw new SQLException("Error establishing connection!");
+        }
+        
+        String query1 = "SELECT * FROM product";
+        
+        if(productCategory != null && !productCategory.isEmpty() && productCategory!="")
+        {
+            query1 = "SELECT a.* FROM product a WHERE a.category_id=(SELECT b.id FROM category b WHERE b.name=\""+productCategory+"\")";
+        }
+        
+        PreparedStatement statement = connection.prepareStatement(query1);
+        ResultSet rs = statement.executeQuery();
+        
+        String tempName = null;
+        
+        while (rs.next())
+        {
+            tempName = rs.getString("name");
+            /*
+            displayCode = displayCode +
+                    "<div class=\"col-md-4 placeholder\">\n" +
+"                <button type=\"submit\" style=\" background: url(pics/"+tempName.toLowerCase()+".jpg) no-repeat; display: inline-block; border-radius: 25%;" +
+"  max-height: 128px; " +"  max-width: 128px;\" class=\"img-responsive\" name=\"product\" value=\""+
+tempName+"\"></button>\n" +
+"              <h4>"+tempName+"</h4>\n" +
+"              <span class=\"text-muted\">"+rs.getInt("price")+"</span>\n" +
+"            </div>"+"\n" +
+"            ";
+            */
+            
+            displayCode = displayCode +
+                    "<div class=\"col-md-4 placeholder\">\n" +
+"                <input type=\"image\" src=\"pics/"+tempName.toLowerCase()+".jpg\""+
+                    " style=\"display: inline-block; border-radius: 25%;" +
+"  max-height: 128px; " +"  max-width: 128px;\" class=\"img-responsive\""+
+                    " alt=\"Generic placeholder thumbnail\" name=\"Submit\" onclick = \"return setHidden('"+
+tempName+"');\"  />\n" +
+"              <h4>"+tempName+"</h4>\n" +
+"              <span class=\"text-muted\">"+rs.getInt("price")+"</span>\n" +
+"            </div>"+"\n" +
+"            ";
+        }
+        
+        return displayCode;
     }
 
     /**
@@ -99,13 +124,6 @@ public class OmniHandler extends BodyTagSupport {
         //       It will be called after initializing variables,
         //       finding the parent, setting IDREFs, etc, and
         //       before calling shouldEvaluateRestOfPageAfterEndTag().
-        
-        try {
-            JspWriter out = pageContext.getOut();
-            out.println("</html>");
-        } catch (IOException ex) {
-            // do something
-        }
     }
 
     /**
@@ -115,108 +133,31 @@ public class OmniHandler extends BodyTagSupport {
      * method will not be called.
      */
     private void writeTagBodyContent(JspWriter out, BodyContent bodyContent) throws IOException, NamingException, SQLException {
-        // TODO: insert code to write html before writing the body content.
-        // e.g.:
-        //
-        // out.println("<strong>" + attribute_1 + "</strong>");
-        // out.println("   <blockquote>");
 
-        // write the body content (after processing by the JSP engine) on the output Writer
-        //bodyContent.writeOut(out);
-        
-        //Generate sidebar's buttongroup code
-        String buttonGroup = buildButtons();
-        
         // Or else get the body content as a string and process it, e.g.:
         String bodyStr = bodyContent.getString();
-        String result = bodyStr.replace(
-"<body>", "<body>\n" +
-"      <form method=\"GET\" action=\"Controller\">\n" +
-"          <input type=\"hidden\" name=\"pageHandlerName\" value=\""+pageHandlerName+"\">\n" +
-"    <nav class=\"navbar navbar-fixed-top\">\n" +
-"      <div class=\"container-fluid\">\n" +
-"        <div class=\"navbar-header\">\n" +
-"          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n" +
-"            <span class=\"sr-only\">Toggle navigation</span>\n" +
-"            <span class=\"icon-bar\"></span>\n" +
-"            <span class=\"icon-bar\"></span>\n" +
-"            <span class=\"icon-bar\"></span>\n" +
-"          </button>\n" +
-"          <a class=\"navbar-brand\" href=\"#\">OmniStore</a>\n" +
-"        </div>\n" +
-"      </div>\n" +
-"    </nav>"+
-"\n" +
-"        \n" +
-"    <div class=\"container-fluid\">\n" +
-"      <div class=\"row\">\n" +
-"        <div class=\"col-sm-3 col-md-2 sidebar\">\n" +
-buttonGroup +
-"        </div>"
-        );
-        
-        result = result.replace("</body>", 
-""+
-"</div>\n" +
-"    </div>\n" +
-"    </form>" +
-"\n" +
-"    <!-- Bootstrap core JavaScript\n" +
-"    ================================================== -->\n" +
-"    <!-- Placed at the end of the document so the pages load faster -->\n" +
-"    <script src=\"js/jquery.min.js\"></script>\n" +
-"    <script src=\"js/bootstrap.min.js\"></script>\n" +
-"    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->\n" +
-"    <script src=\"js/ie10-viewport-bug-workaround.js\"></script>\n" +
-"  </body>"
-        );
-        out.println(result);
-        // TODO: insert code to write html after writing the body content.
-        // e.g.:
-//        try {
-//            out.println(
-//                    "<!-- Bootstrap core JavaScript\n" +
-//"    ================================================== -->\n" +
-//"    <!-- Placed at the end of the document so the pages load faster -->\n" +
-//"    <script src=\"js/jquery.min.js\"></script>\n" +
-//"    <script src=\"js/bootstrap.min.js\"></script>\n" +
-//"    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->\n" +
-//"    <script src=\"js/ie10-viewport-bug-workaround.js\"></script>"
-//            );
-//        } catch (IOException ex) {
-//            // do something
-//        }
+        bodyStr.replace("\n", "");
+        //bodyStr.replace(" ", "");
+        //bodyStr = "";
+        String products = productDisplay(bodyStr);
+        out.println(
+"<input id='Which' name='product' type='hidden' value='' />"+
+         products +
+"            \n" +
+"<script language=\"javascript\">\n" +
+"    function setHidden(whichButton)\n" +
+"    {\n" +
+"        var element = document.getElementById(\"Which\");\n" +
+"        element.value = whichButton;\n" +
+"        return true;\n" +
+"    }\n" +
+"</script>"+
+"          </div>\n" +
+"          \n" +
+"        </div>");
+
         // clear the body content for the next time through.
         bodyContent.clearBody();
-    }
-    
-    public String buildButtons() throws NamingException, SQLException
-    {
-        String buttonBar = "";
-        
-        DataSource ds = getOmniBase();
-        Connection connection = ds.getConnection();
- 
-        if (connection == null)
-        {
-            throw new SQLException("Error establishing connection!");
-        }
-        String query = "SELECT name FROM category";
-        
-        PreparedStatement statement = connection.prepareStatement(query);
-        ResultSet rs = statement.executeQuery();
-        
-        String tempName = null;
-        
-        while (rs.next())
-        {
-            tempName = rs.getString("name");
-            buttonBar = buttonBar +
-                    "<button type=\"submit\" class=\"btn btn-default\" name=\"category\" value=\""+
-                    tempName+
-                    "\" style=\"width:100%;\">"+tempName+"</button>";
-        }
-        return buttonBar;
     }
 
     ////////////////////////////////////////////////////////////////
@@ -300,7 +241,7 @@ buttonGroup +
      */
     private void handleBodyContentException(Exception ex) throws JspException {
         // Since the doAfterBody method is guarded, place exception handing code here.
-        throw new JspException("Error in OmniHandler tag", ex);
+        throw new JspException("Error in vitrineTagHandler tag", ex);
     }
 
     /**
@@ -342,6 +283,5 @@ buttonGroup +
         Context c = new InitialContext();
         return (DataSource) c.lookup("java:comp/env/omniBase");
     }
-
     
 }

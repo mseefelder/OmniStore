@@ -26,6 +26,12 @@ import javax.sql.DataSource;
  */
 public class vitrineTag extends SimpleTagSupport {
 
+    public void setProductCategory(String productCategory) {
+        this.productCategory = productCategory;
+    }
+    
+    public String productCategory;
+    
     /**
      * Called by the container to invoke this tag. The implementation of this
      * method is provided by the tag library developer, and handles all tag
@@ -87,9 +93,18 @@ products +
         {
             throw new SQLException("Error establishing connection!");
         }
-        String query = "SELECT * FROM product";
         
-        PreparedStatement statement = connection.prepareStatement(query);
+        String query1 = null;
+        
+        if(productCategory == null || productCategory.isEmpty())
+        {
+            query1 = "SELECT * FROM product";
+        }
+        else
+        {
+            query1 = "SELECT a.* FROM product a WHERE a.category_id=(SELECT b.id FROM category b WHERE b.name=\""+productCategory+"\")";
+        }
+        PreparedStatement statement = connection.prepareStatement(query1);
         ResultSet rs = statement.executeQuery();
         
         String tempName = null;

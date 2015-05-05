@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Vitrine da loja</title>
+    <title>Vitrine</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -20,7 +26,7 @@
     
     <body>
       <form method="GET" action="Controller">
-          <input type="hidden" name="pageHandlerName" value="com.mseefelder.omnistore.pageHandlers.mainPageHandler">
+          <input type="hidden" name="pagehandler" value="com.mseefelder.omnistore.pageHandlers.vitrineHandler">
     <nav class="navbar navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -38,28 +44,14 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-        <!--
-        <div class="col-sm-3 col-md-2 btn-group-vertical" role="group" aria-label="...">
-            <button type="submit" class="btn btn-default" name="botao" value="valor">Left</button>
-            <button type="button" class="btn btn-default">Middle</button>
-            <button type="button" class="btn btn-default">Right</button>
-        </div>
-        -->
-        <!--
           <ul class="nav nav-sidebar">
-            
             <li class="active"><a href="#">Categories <span class="sr-only">(current)</span></a></li>
-            <li><a href="#" >Liquid</a></li>
+            <li><a href="#">Liquid</a></li>
             <li><a href="#">Solid</a></li>
-            <li><input type="button" value="Foobar" /></li>
           </ul>
-        -->
-            <button type="submit" class="btn btn-default" name="botao" value="valor" style="width:100%;">Left</button>
-            <button type="submit" class="btn btn-default" name="botao" value="valor" style="width:100%;">Left</button>
-            <button type="submit" class="btn btn-default" name="botao" value="valor" style="width:100%;">Left</button>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Vitrine</h1>
+          <h1 class="page-header">Vitrine Principal</h1>
           <div class="row placeholders">
             
               <!--
@@ -70,7 +62,7 @@
             </div>
               -->
             <div class="col-md-4 placeholder">
-                <input type="image" src="pics/coin.png" class="img-responsive" alt="Generic placeholder thumbnail">
+              <img src="pics/coin.png" class="img-responsive" alt="Generic placeholder thumbnail">
               <h4>Coin</h4>
               <span class="text-muted">1GOLD</span>
             </div>
@@ -78,10 +70,10 @@
           </div>
           
         </div>
-
-    </div>
+      </div>
     </div>
     </form>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

@@ -33,7 +33,7 @@ public class mainPageHandler implements pageHandlerInterface
         }
         * */
         
-        jspURL = "bases/storePage.jsp";
+        jspURL = "vitrine.jsp";
         request.setAttribute("EXTRA", "Teste");
         
         return jspURL;

@@ -9,11 +9,11 @@
 <%@taglib prefix="omniTag" uri="/WEB-INF/tlds/OmniTagLibrary.tld" %>
 
 <omniTag:OmniHandler
-    pageHandlerName="com.mseefelder.omnistore.pageHandlers.vitrineHandler"
+    pageHandlerName="com.mseefelder.omnistore.pageHandlers.mainPageHandler"
     pageName="Vitrine"> 
     
     <body>
-        
+        <omniTag:vitrineTag></omniTag:vitrineTag>
     </body>
     
 </omniTag:OmniHandler>

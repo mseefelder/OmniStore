@@ -6,10 +6,18 @@
 package taghandlers;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyContent;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.sql.DataSource;
 
 /**
  *
@@ -106,7 +114,7 @@ public class OmniHandler extends BodyTagSupport {
      * "tagdependent." If the tag's bodyContent is set to "empty," then this
      * method will not be called.
      */
-    private void writeTagBodyContent(JspWriter out, BodyContent bodyContent) throws IOException {
+    private void writeTagBodyContent(JspWriter out, BodyContent bodyContent) throws IOException, NamingException, SQLException {
         // TODO: insert code to write html before writing the body content.
         // e.g.:
         //
@@ -115,21 +123,52 @@ public class OmniHandler extends BodyTagSupport {
 
         // write the body content (after processing by the JSP engine) on the output Writer
         //bodyContent.writeOut(out);
-
+        
+        //Generate sidebar's buttongroup code
+        String buttonGroup = buildButtons();
+        
         // Or else get the body content as a string and process it, e.g.:
         String bodyStr = bodyContent.getString();
         String result = bodyStr.replace(
-"<body>", "<body>"+"<form method=\"GET\" action=\"Controller\">"+
-"<input type=\"hidden\" name=\"pageHandlerName\""+
-" value=\""+pageHandlerName+"\">");
+"<body>", "<body>\n" +
+"      <form method=\"GET\" action=\"Controller\">\n" +
+"          <input type=\"hidden\" name=\"pageHandlerName\" value=\""+pageHandlerName+"\">\n" +
+"    <nav class=\"navbar navbar-fixed-top\">\n" +
+"      <div class=\"container-fluid\">\n" +
+"        <div class=\"navbar-header\">\n" +
+"          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n" +
+"            <span class=\"sr-only\">Toggle navigation</span>\n" +
+"            <span class=\"icon-bar\"></span>\n" +
+"            <span class=\"icon-bar\"></span>\n" +
+"            <span class=\"icon-bar\"></span>\n" +
+"          </button>\n" +
+"          <a class=\"navbar-brand\" href=\"#\">${EXTRA}</a>\n" +
+"        </div>\n" +
+"      </div>\n" +
+"    </nav>"+
+"\n" +
+"        \n" +
+"    <div class=\"container-fluid\">\n" +
+"      <div class=\"row\">\n" +
+"        <div class=\"col-sm-3 col-md-2 sidebar\">\n" +
+buttonGroup +
+"        </div>"
+        );
         
-        result = result.replace("</body>", "<!-- Bootstrap core JavaScript\n" +
+        result = result.replace("</body>", 
+"</div>\n" +
+"    </div>\n" +
+"    </form>" +
+"\n" +
+"    <!-- Bootstrap core JavaScript\n" +
 "    ================================================== -->\n" +
 "    <!-- Placed at the end of the document so the pages load faster -->\n" +
 "    <script src=\"js/jquery.min.js\"></script>\n" +
 "    <script src=\"js/bootstrap.min.js\"></script>\n" +
 "    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->\n" +
-"    <script src=\"js/ie10-viewport-bug-workaround.js\"></script>"+"</body>");
+"    <script src=\"js/ie10-viewport-bug-workaround.js\"></script>\n" +
+"  </body>"
+        );
         out.println(result);
         // TODO: insert code to write html after writing the body content.
         // e.g.:
@@ -148,6 +187,35 @@ public class OmniHandler extends BodyTagSupport {
 //        }
         // clear the body content for the next time through.
         bodyContent.clearBody();
+    }
+    
+    public String buildButtons() throws NamingException, SQLException
+    {
+        String buttonBar = "";
+        
+        DataSource ds = getOmniBase();
+        Connection connection = ds.getConnection();
+ 
+        if (connection == null)
+        {
+            throw new SQLException("Error establishing connection!");
+        }
+        String query = "SELECT name FROM category";
+        
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet rs = statement.executeQuery();
+        
+        String tempName = null;
+        
+        while (rs.next())
+        {
+            tempName = rs.getString("name");
+            buttonBar = buttonBar +
+                    "<button type=\"submit\" class=\"btn btn-default\" name=\"botao\" value=\""+
+                    tempName+
+                    "\" style=\"width:100%;\">"+tempName+"</button>";
+        }
+        return buttonBar;
     }
 
     ////////////////////////////////////////////////////////////////
@@ -268,5 +336,11 @@ public class OmniHandler extends BodyTagSupport {
         //       Called from the doStartTag() method.
         return true;
     }
+
+    private DataSource getOmniBase() throws NamingException {
+        Context c = new InitialContext();
+        return (DataSource) c.lookup("java:comp/env/omniBase");
+    }
+
     
 }

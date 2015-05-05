@@ -14,7 +14,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>bases/storePage.jsp</welcome-file>
+        <welcome-file>vitrine.jsp</welcome-file>
     </welcome-file-list>
     
     <resource-ref>

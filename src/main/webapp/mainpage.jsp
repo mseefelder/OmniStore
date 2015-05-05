@@ -32,7 +32,7 @@
             <li><a href="#about">Meu Carrinho</a></li>
             <!--<li><a href="#contact">Contact</a></li>-->
           </ul>
-          <form class="navbar-form navbar-right">
+          <form class="navbar-form navbar-right" method="GET" action="Controller">
             <input type="text" name="SEARCH_BOX" class="form-control" value="${SEARCH}" placeholder="Pesquisa...">
           </form>
         </div><!--/.nav-collapse -->

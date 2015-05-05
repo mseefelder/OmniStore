@@ -25,7 +25,7 @@
     <tag-class>taghandlers.OmniHandler</tag-class>
     <body-content>JSP</body-content>
     <attribute>
-      <name>bootStrapStyle</name>
+      <name>pageName</name>
       <required>true</required>
       <rtexprvalue>false</rtexprvalue>
       <type>java.lang.String</type>
@@ -36,5 +36,20 @@
       <rtexprvalue>false</rtexprvalue>
       <type>java.lang.String</type>
     </attribute>
+  </tag>
+  <tag>
+    <name>vitrineTag</name>
+    <tag-class>taghandlers.vitrineTag</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <name>productTag</name>
+    <tag-class>taghandlers.productTag</tag-class>
+    <body-content>scriptless</body-content>
+  </tag>
+  <tag>
+    <name>concluidoTag</name>
+    <tag-class>taghandlers.concluidoTag</tag-class>
+    <body-content>scriptless</body-content>
   </tag>
 </taglib>

@@ -15,15 +15,14 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *
  * @author mseefelder
  */
-public class OmniHandler extends BodyTagSupport {
-    
-    private String bootStrapStyle;
+public class OmniHandler extends BodyTagSupport {    
+    private String pageName;
     private String pageHandlerName;
-    
-    public void setBootStrapStyle(String bootStrapStyle) {
-        this.bootStrapStyle = bootStrapStyle;
-    }
 
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
+    }
+    
     public void setPageHandlerName(String pageHandlerName) {
         this.pageHandlerName = pageHandlerName;
     }
@@ -59,15 +58,22 @@ public class OmniHandler extends BodyTagSupport {
             JspWriter out = pageContext.getOut();
             out.println(
 "<!DOCTYPE html>\n" +
-"<html>\n" +
-"    <head>\n" +
-"        <meta charset=\"utf-8\">\n" +
-"        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
-"        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"+
-"        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n" +
-"        <link rel=\"stylesheet\" href=\"css/bootstrap.css\" type=\"text/css\"/>\n" +
-"        <link href=\"css/"+bootStrapStyle+".css\" rel=\"stylesheet\">\n" +
-"        <title>OmniStore</title>\n" +
+"<html lang=\"en\">\n" +
+"  <head>\n" +
+"    <meta charset=\"utf-8\">\n" +
+"    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+"    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+"    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->\n" +
+"    <meta name=\"description\" content=\"\">\n" +
+"    <meta name=\"author\" content=\"\">\n" +
+"\n" +
+"    <title>"+pageName+"</title>\n" +
+"\n" +
+"    <!-- Bootstrap core CSS -->\n" +
+"    <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\">\n" +
+"\n" +
+"    <!-- Custom styles for this template -->\n" +
+"    <link href=\"css/dashboard.css\" rel=\"stylesheet\">\n" +
 "    </head>"
             );
         } catch (IOException ex) {
@@ -112,9 +118,11 @@ public class OmniHandler extends BodyTagSupport {
 
         // Or else get the body content as a string and process it, e.g.:
         String bodyStr = bodyContent.getString();
-        String result = bodyStr.replace("<body>", "<body>"+"<form method=\"GET\" action=\"Controller\">"+
+        String result = bodyStr.replace(
+"<body>", "<body>"+"<form method=\"GET\" action=\"Controller\">"+
 "<input type=\"hidden\" name=\"pageHandlerName\""+
-"value=\""+pageHandlerName+"\"/>");
+" value=\""+pageHandlerName+"\">");
+        
         result = result.replace("</body>", "<!-- Bootstrap core JavaScript\n" +
 "    ================================================== -->\n" +
 "    <!-- Placed at the end of the document so the pages load faster -->\n" +

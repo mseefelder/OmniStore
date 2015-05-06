@@ -9,8 +9,8 @@
 <%@taglib prefix="omniTag" uri="/WEB-INF/tlds/OmniTagLibrary.tld" %>
 
 <omniTag:OmniHandler
-    pageHandlerName="com.mseefelder.omnistore.pageHandlers.mainPageHandler"
-    pageName="vitrine"> 
+    pageHandlerName="com.mseefelder.omnistore.pageHandlers.productPageHandler"
+    pageName="Vitrine"> 
     
     <body>
         <omniTag:vitrineTagHandler>${EXTRA}</omniTag:vitrineTagHandler>

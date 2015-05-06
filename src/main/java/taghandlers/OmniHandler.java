@@ -148,15 +148,23 @@ public class OmniHandler extends BodyTagSupport {
 "    </nav>"+
 "\n" +
 "        \n" +
-"    <div class=\"container-fluid\">\n" +
+"    <div class=\"container\">\n" +
 "      <div class=\"row\">\n" +
-"        <div class=\"col-sm-3 col-md-2 sidebar\">\n" +
+"        <div class=\"col-md-2 col-xs-3 col-sm-4 sidebar\">\n" +
 buttonGroup +
 "        </div>"
         );
         
         result = result.replace("</body>", 
 ""+
+"<script language=\"javascript\">\n" +
+"    function setHidden(whichButton)\n" +
+"    {\n" +
+"        var element = document.getElementById(\"Which\");\n" +
+"        element.value = whichButton;\n" +
+"        return true;\n" +
+"    }\n" +
+"</script>"+
 "</div>\n" +
 "    </div>\n" +
 "    </form>" +
@@ -206,6 +214,10 @@ buttonGroup +
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet rs = statement.executeQuery();
         
+        buttonBar = "<button type=\"submit\" class=\"btn btn-default\" name=\"category\" value=\""+
+                    ""+
+                    "\" style=\"width:100%;\">"+"Principal"+"</button> \n";
+        
         String tempName = null;
         
         while (rs.next())
@@ -214,8 +226,11 @@ buttonGroup +
             buttonBar = buttonBar +
                     "<button type=\"submit\" class=\"btn btn-default\" name=\"category\" value=\""+
                     tempName+
-                    "\" style=\"width:100%;\">"+tempName+"</button>";
+                    "\" style=\"width:100%;\">"+tempName+"</button> \n";
         }
+        
+        connection.close();
+        
         return buttonBar;
     }
 

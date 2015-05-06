@@ -18,19 +18,24 @@ import javax.naming.NamingException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyContent;
+import static javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_BUFFERED;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import static javax.servlet.jsp.tagext.IterationTag.EVAL_BODY_AGAIN;
+import static javax.servlet.jsp.tagext.Tag.EVAL_PAGE;
+import static javax.servlet.jsp.tagext.Tag.SKIP_BODY;
+import static javax.servlet.jsp.tagext.Tag.SKIP_PAGE;
 import javax.sql.DataSource;
 
 /**
  *
  * @author mseefelder
  */
-public class vitrineTagHandler extends BodyTagSupport {
+public class productTagHandler extends BodyTagSupport {
     
     /**
      * Creates new instance of tag handler
      */
-    public vitrineTagHandler() {
+    public productTagHandler() {
         super();
     }
 
@@ -50,16 +55,14 @@ public class vitrineTagHandler extends BodyTagSupport {
             JspWriter out = pageContext.getOut();
             out.println(
 "<div class=\"col-md-10 col-md-offset-2 col-xs-9 col-xs-offset-3 col-sm-8 col-sm-offset-4 container-fluid main\">\n" +
-"          <h1 class=\"page-header\">Vitrine</h1>\n" +
-"          <div class=\"row placeholders\">\n" +
-"            \n"
+"          <h1 class=\"page-header\">Produto: </h1>"
             );
         } catch (IOException ex) {
             // do something
         }
     }
     
-    public String productDisplay(String productCategory) throws NamingException, SQLException
+    public String singleProductDisplay(String productName) throws NamingException, SQLException
     {
         String displayCode = "";
         
@@ -71,45 +74,24 @@ public class vitrineTagHandler extends BodyTagSupport {
             throw new SQLException("Error establishing connection!");
         }
         
-        String query1 = "SELECT * FROM product";
-        
-        if(productCategory != null && !productCategory.isEmpty() && productCategory!="" && productCategory!="none")
-        {
-            query1 = "SELECT a.* FROM product a WHERE a.category_id=(SELECT b.id FROM category b WHERE b.name=\""+productCategory+"\")";
-        }
+        String query1 = "SELECT a.* FROM product a WHERE a.name=\""+productName+"\"";
         
         PreparedStatement statement = connection.prepareStatement(query1);
         ResultSet rs = statement.executeQuery();
         
-        String tempName = null;
+        rs.next();
         
-        while (rs.next())
-        {
-            tempName = rs.getString("name");
-            /*
-            displayCode = displayCode +
-                    "<div class=\"col-md-4 placeholder\">\n" +
-"                <button type=\"submit\" style=\" background: url(pics/"+tempName.toLowerCase()+".jpg) no-repeat; display: inline-block; border-radius: 25%;" +
-"  max-height: 128px; " +"  max-width: 128px;\" class=\"img-responsive\" name=\"product\" value=\""+
-tempName+"\"></button>\n" +
-"              <h4>"+tempName+"</h4>\n" +
-"              <span class=\"text-muted\">"+rs.getInt("price")+"</span>\n" +
-"            </div>"+"\n" +
-"            ";
-            */
-            
-            displayCode = displayCode +
-                    "<div class=\" col-md-2.5 col-xs-4.5 col-sm-4 placeholder\">\n" +
-"                <input type=\"image\" src=\"pics/"+tempName.toLowerCase()+".jpg\""+
-                    " style=\"display: inline-block; border-radius: 25%;" +
-"  max-height: 50%; " +"  max-width: 50%;\" class=\"img-responsive\""+
-                    " alt=\"Generic placeholder thumbnail\" name=\"Submit\" onclick = \"return setHidden('"+
-tempName+"');\"  />\n" +
-"              <h4>"+tempName+"</h4>\n" +
-"              <span class=\"text-muted\">"+rs.getInt("price")+"</span>\n" +
-"            </div>"+"\n" +
-"            ";
-        }
+        displayCode = 
+"<div class=\"col-md-4 col-xs-4 col-sm-3\">\n" +
+"            <img src=\"pics/"+productName+".jpg\" class=\"img-responsive\">\n" +
+"          </div>\n" +
+"          <div class=\"col-md-6 col-xs-5 col-sm-5\">\n" +
+"            <p>"+rs.getString("description")+"</p><p>Custo: "+
+rs.getInt("price")+" peças de ouro.</p>\n" +
+"<button type=\"submit\" class=\"btn btn-default\" name=\"bought\" value=\""+
+                    "yes"+
+                    "\" style=\"width:100%;\">"+"Comprar"+"</button> \n"+
+"          </div>";
         
         connection.close();
         
@@ -141,14 +123,11 @@ tempName+"');\"  />\n" +
         bodyStr.replace("\n", "");
         //bodyStr.replace(" ", "");
         //bodyStr = "";
-        String products = productDisplay(bodyStr);
+        String productDisplay = singleProductDisplay(bodyStr);
         out.println(
-"<input id='Which' name='product' type='hidden' value='' />"+
-         products +
+productDisplay +
 "            \n" +
-"          </div>\n" +
-"          \n" +
-"        </div>");
+"          </div>");
 
         // clear the body content for the next time through.
         bodyContent.clearBody();

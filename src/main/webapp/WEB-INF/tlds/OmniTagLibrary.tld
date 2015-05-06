@@ -38,29 +38,18 @@
     </attribute>
   </tag>
   <tag>
-    <name>vitrineTag</name>
-    <tag-class>taghandlers.vitrineTag</tag-class>
-    <body-content>scriptless</body-content>
-    <attribute>
-      <name>productCategory</name>
-      <required>false</required>
-      <rtexprvalue>false</rtexprvalue>
-      <type>java.lang.String</type>
-    </attribute>
-  </tag>
-  <tag>
-    <name>productTag</name>
-    <tag-class>taghandlers.productTag</tag-class>
-    <body-content>scriptless</body-content>
-  </tag>
-  <tag>
-    <name>concluidoTag</name>
-    <tag-class>taghandlers.concluidoTag</tag-class>
-    <body-content>scriptless</body-content>
-  </tag>
-  <tag>
     <name>vitrineTagHandler</name>
     <tag-class>taghandlers.vitrineTagHandler</tag-class>
+    <body-content>JSP</body-content>
+  </tag>
+  <tag>
+    <name>productTagHandler</name>
+    <tag-class>taghandlers.productTagHandler</tag-class>
+    <body-content>JSP</body-content>
+  </tag>
+  <tag>
+    <name>finishedTagHandler</name>
+    <tag-class>taghandlers.finishedTagHandler</tag-class>
     <body-content>JSP</body-content>
   </tag>
 </taglib>

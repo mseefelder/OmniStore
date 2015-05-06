@@ -18,19 +18,24 @@ import javax.naming.NamingException;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.BodyContent;
+import static javax.servlet.jsp.tagext.BodyTag.EVAL_BODY_BUFFERED;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import static javax.servlet.jsp.tagext.IterationTag.EVAL_BODY_AGAIN;
+import static javax.servlet.jsp.tagext.Tag.EVAL_PAGE;
+import static javax.servlet.jsp.tagext.Tag.SKIP_BODY;
+import static javax.servlet.jsp.tagext.Tag.SKIP_PAGE;
 import javax.sql.DataSource;
 
 /**
  *
  * @author mseefelder
  */
-public class vitrineTagHandler extends BodyTagSupport {
+public class finishedTagHandler extends BodyTagSupport {
     
     /**
      * Creates new instance of tag handler
      */
-    public vitrineTagHandler() {
+    public finishedTagHandler() {
         super();
     }
 
@@ -50,82 +55,31 @@ public class vitrineTagHandler extends BodyTagSupport {
             JspWriter out = pageContext.getOut();
             out.println(
 "<div class=\"col-md-10 col-md-offset-2 col-xs-9 col-xs-offset-3 col-sm-8 col-sm-offset-4 container-fluid main\">\n" +
-"          <h1 class=\"page-header\">Vitrine</h1>\n" +
-"          <div class=\"row placeholders\">\n" +
-"            \n"
+"          <h1 class=\"page-header\">Obrigado! </h1>"
             );
         } catch (IOException ex) {
             // do something
         }
-    }
-    
-    public String productDisplay(String productCategory) throws NamingException, SQLException
-    {
-        String displayCode = "";
-        
-        DataSource ds = getOmniBase();
-        Connection connection = ds.getConnection();
- 
-        if (connection == null)
-        {
-            throw new SQLException("Error establishing connection!");
-        }
-        
-        String query1 = "SELECT * FROM product";
-        
-        if(productCategory != null && !productCategory.isEmpty() && productCategory!="" && productCategory!="none")
-        {
-            query1 = "SELECT a.* FROM product a WHERE a.category_id=(SELECT b.id FROM category b WHERE b.name=\""+productCategory+"\")";
-        }
-        
-        PreparedStatement statement = connection.prepareStatement(query1);
-        ResultSet rs = statement.executeQuery();
-        
-        String tempName = null;
-        
-        while (rs.next())
-        {
-            tempName = rs.getString("name");
-            /*
-            displayCode = displayCode +
-                    "<div class=\"col-md-4 placeholder\">\n" +
-"                <button type=\"submit\" style=\" background: url(pics/"+tempName.toLowerCase()+".jpg) no-repeat; display: inline-block; border-radius: 25%;" +
-"  max-height: 128px; " +"  max-width: 128px;\" class=\"img-responsive\" name=\"product\" value=\""+
-tempName+"\"></button>\n" +
-"              <h4>"+tempName+"</h4>\n" +
-"              <span class=\"text-muted\">"+rs.getInt("price")+"</span>\n" +
-"            </div>"+"\n" +
-"            ";
-            */
-            
-            displayCode = displayCode +
-                    "<div class=\" col-md-2.5 col-xs-4.5 col-sm-4 placeholder\">\n" +
-"                <input type=\"image\" src=\"pics/"+tempName.toLowerCase()+".jpg\""+
-                    " style=\"display: inline-block; border-radius: 25%;" +
-"  max-height: 50%; " +"  max-width: 50%;\" class=\"img-responsive\""+
-                    " alt=\"Generic placeholder thumbnail\" name=\"Submit\" onclick = \"return setHidden('"+
-tempName+"');\"  />\n" +
-"              <h4>"+tempName+"</h4>\n" +
-"              <span class=\"text-muted\">"+rs.getInt("price")+"</span>\n" +
-"            </div>"+"\n" +
-"            ";
-        }
-        
-        connection.close();
-        
-        return displayCode;
     }
 
     /**
      * Method called from doEndTag() Fill in this method to perform other
      * operations from doEndTag().
      */
-    private void otherDoEndTagOperations() {
+    private void otherDoEndTagOperations() throws IOException {
         // TODO: code that performs other operations in doEndTag
         //       should be placed here.
         //       It will be called after initializing variables,
         //       finding the parent, setting IDREFs, etc, and
         //       before calling shouldEvaluateRestOfPageAfterEndTag().
+        JspWriter out = pageContext.getOut();
+        out.println(
+"<div class=\"col-md-4 col-xs-4 col-sm-3\">\n" +
+"            <img src=\"pics/coin.png\" class=\"img-responsive\">\n" +
+"          </div>\n" +
+"          <div class=\"col-md-6 col-xs-5 col-sm-5\">\n" +
+"            <h2>Muito obrigado pela sua compra!</h2> \n"+
+"          </div>");
     }
 
     /**
@@ -135,20 +89,6 @@ tempName+"');\"  />\n" +
      * method will not be called.
      */
     private void writeTagBodyContent(JspWriter out, BodyContent bodyContent) throws IOException, NamingException, SQLException {
-
-        // Or else get the body content as a string and process it, e.g.:
-        String bodyStr = bodyContent.getString();
-        bodyStr.replace("\n", "");
-        //bodyStr.replace(" ", "");
-        //bodyStr = "";
-        String products = productDisplay(bodyStr);
-        out.println(
-"<input id='Which' name='product' type='hidden' value='' />"+
-         products +
-"            \n" +
-"          </div>\n" +
-"          \n" +
-"        </div>");
 
         // clear the body content for the next time through.
         bodyContent.clearBody();
@@ -193,7 +133,11 @@ tempName+"');\"  />\n" +
      */
     @Override
     public int doEndTag() throws JspException {
-        otherDoEndTagOperations();
+        try {
+            otherDoEndTagOperations();
+        } catch (IOException ex) {
+            Logger.getLogger(finishedTagHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         if (shouldEvaluateRestOfPageAfterEndTag()) {
             return EVAL_PAGE;

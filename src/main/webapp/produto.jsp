@@ -1,17 +1,19 @@
 <%-- 
-    Document   : produto
-    Created on : May 4, 2015, 9:57:09 PM
+    Document   : vitrine
+    Created on : May 4, 2015, 9:54:20 PM
     Author     : mseefelder
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
+
+<%@taglib prefix="omniTag" uri="/WEB-INF/tlds/OmniTagLibrary.tld" %>
+
+<omniTag:OmniHandler
+    pageHandlerName="com.mseefelder.omnistore.pageHandlers.productPageHandler"
+    pageName="Produto:"> 
+    
     <body>
-        <h1>Hello World!</h1>
+        <omniTag:productTagHandler>${EXTRA}</omniTag:productTagHandler>
     </body>
-</html>
+    
+</omniTag:OmniHandler>

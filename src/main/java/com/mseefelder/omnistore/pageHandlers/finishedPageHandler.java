@@ -13,19 +13,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author mseefelder
  */
-public class mainPageHandler implements pageHandlerInterface 
+public class finishedPageHandler implements pageHandlerInterface 
 {
 
     @Override
     public String process(HttpServletRequest request, HttpServletResponse response) {
         String jspURL = null;
         
+        String buyRequest = request.getParameter("bought");
         String categoryText = request.getParameter("category");
-        String productText = request.getParameter("product");
-        if(productText != null && !productText.isEmpty())
+        if(buyRequest != null && !buyRequest.isEmpty())
         {
-            jspURL = "produto.jsp";
-            request.setAttribute("EXTRA", productText);
+            jspURL = "concluido.jsp";
         }
         else if(categoryText=="none")
         {
@@ -38,10 +37,10 @@ public class mainPageHandler implements pageHandlerInterface
         }
         else
         {
-            jspURL = "vitrine.jsp";
+            jspURL = "concluido.jsp";
         }
         
-        return jspURL;
+        return "concluido.jsp";
     }
     
 }

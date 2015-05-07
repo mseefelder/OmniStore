@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Controller for the Store Website project.
  */
 package com.mseefelder.omnistore.controller;
 
@@ -36,15 +34,12 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException 
     {
         response.setContentType("text/html;charset=UTF-8");
-        //try (PrintWriter out = response.getWriter())
         pageHandlerInterface pageHandler;
         try {
             String pageHandlerName = request.getParameter("pageHandlerName");
             pageHandler = (pageHandlerInterface) Class.forName(pageHandlerName).newInstance();
             String responsePageName = pageHandler.process(request, response);
             request.getRequestDispatcher(responsePageName).forward(request, response);
-                        
-            /* TODO output your page here. You may use following sample code. */
             
         }
         catch (Exception e)

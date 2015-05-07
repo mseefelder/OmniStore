@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * For the main product display tag.
  */
 package taghandlers;
 
@@ -86,22 +84,11 @@ public class vitrineTagHandler extends BodyTagSupport {
         while (rs.next())
         {
             tempName = rs.getString("name");
-            /*
-            displayCode = displayCode +
-                    "<div class=\"col-md-4 placeholder\">\n" +
-"                <button type=\"submit\" style=\" background: url(pics/"+tempName.toLowerCase()+".jpg) no-repeat; display: inline-block; border-radius: 25%;" +
-"  max-height: 128px; " +"  max-width: 128px;\" class=\"img-responsive\" name=\"product\" value=\""+
-tempName+"\"></button>\n" +
-"              <h4>"+tempName+"</h4>\n" +
-"              <span class=\"text-muted\">"+rs.getInt("price")+"</span>\n" +
-"            </div>"+"\n" +
-"            ";
-            */
             
             displayCode = displayCode +
                     "<div class=\" col-md-2.5 col-xs-4.5 col-sm-4 placeholder\">\n" +
 "                <input type=\"image\" src=\"pics/"+tempName+".png\""+
-                    " style=\"display: inline-block; border-radius: 25%;" +
+                    " style=\"display: inline-block; border-radius: 10%;" +
 "  max-height: 50%; " +"  max-width: 50%;\" class=\"img-responsive\""+
                     " alt=\"Generic placeholder thumbnail\" name=\"Submit\" onclick = \"return setHidden('"+
 tempName+"');\"  />\n" +
@@ -139,8 +126,6 @@ tempName+"');\"  />\n" +
         // Or else get the body content as a string and process it, e.g.:
         String bodyStr = bodyContent.getString();
         bodyStr.replace("\n", "");
-        //bodyStr.replace(" ", "");
-        //bodyStr = "";
         String products = productDisplay(bodyStr);
         out.println(
 "<input id='Which' name='product' type='hidden' value='' />"+

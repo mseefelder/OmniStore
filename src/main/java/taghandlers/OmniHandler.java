@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Handles outer tag.
  */
 package taghandlers;
 
@@ -54,14 +52,6 @@ public class OmniHandler extends BodyTagSupport {
      * operations from doStartTag().
      */
     private void otherDoStartTagOperations() {
-        // TODO: code that performs other operations in doStartTag
-        //       should be placed here.
-        //       It will be called after initializing variables, 
-        //       finding the parent, setting IDREFs, etc, and 
-        //       before calling theBodyShouldBeEvaluated(). 
-        //
-        //       For example, to print something out to the JSP, use the following:
-        //
         try {
             JspWriter out = pageContext.getOut();
             out.println(
@@ -94,12 +84,6 @@ public class OmniHandler extends BodyTagSupport {
      * operations from doEndTag().
      */
     private void otherDoEndTagOperations() {
-        // TODO: code that performs other operations in doEndTag
-        //       should be placed here.
-        //       It will be called after initializing variables,
-        //       finding the parent, setting IDREFs, etc, and
-        //       before calling shouldEvaluateRestOfPageAfterEndTag().
-        
         try {
             JspWriter out = pageContext.getOut();
             out.println("</html>");
@@ -115,19 +99,11 @@ public class OmniHandler extends BodyTagSupport {
      * method will not be called.
      */
     private void writeTagBodyContent(JspWriter out, BodyContent bodyContent) throws IOException, NamingException, SQLException {
-        // TODO: insert code to write html before writing the body content.
-        // e.g.:
-        //
-        // out.println("<strong>" + attribute_1 + "</strong>");
-        // out.println("   <blockquote>");
-
-        // write the body content (after processing by the JSP engine) on the output Writer
-        //bodyContent.writeOut(out);
-        
+       
         //Generate sidebar's buttongroup code
         String buttonGroup = buildButtons();
         
-        // Or else get the body content as a string and process it, e.g.:
+        // get the body content as a string and process it, e.g.:
         String bodyStr = bodyContent.getString();
         String result = bodyStr.replace(
 "<body>", "<body>\n" +
@@ -142,7 +118,7 @@ public class OmniHandler extends BodyTagSupport {
 "            <span class=\"icon-bar\"></span>\n" +
 "            <span class=\"icon-bar\"></span>\n" +
 "          </button>\n" +
-"          <a class=\"navbar-brand\" href=\"#\">A Forja do Alquimista</a>\n" +
+"          <a class=\"navbar-brand\" href=\"#\">A Forja do Alquimista</a>\n" +        
 "        </div>\n" +
 "      </div>\n" +
 "    </nav>"+
@@ -152,6 +128,10 @@ public class OmniHandler extends BodyTagSupport {
 "      <div class=\"row\">\n" +
 "        <div class=\"col-md-2 col-xs-3 col-sm-4 sidebar\">\n" +
 buttonGroup +
+"<p href=\"#\" style=\"color:white;\" >\n Feito por: Marcos Seefelder de Assis Araujo</p>\n" +
+"<p href=\"#\" style=\"color:white;\" >Créditos:"+
+" <a href=\"https://www.flickr.com/photos/filterforge/14410927724\" >[1]</a> "+
+" <a href=\"https://www.flickr.com/photos/filterforge/9599276116/\">[2]</a> </p>\n" +
 "        </div>"
         );
         
@@ -179,21 +159,7 @@ buttonGroup +
 "  </body>"
         );
         out.println(result);
-        // TODO: insert code to write html after writing the body content.
-        // e.g.:
-//        try {
-//            out.println(
-//                    "<!-- Bootstrap core JavaScript\n" +
-//"    ================================================== -->\n" +
-//"    <!-- Placed at the end of the document so the pages load faster -->\n" +
-//"    <script src=\"js/jquery.min.js\"></script>\n" +
-//"    <script src=\"js/bootstrap.min.js\"></script>\n" +
-//"    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->\n" +
-//"    <script src=\"js/ie10-viewport-bug-workaround.js\"></script>"
-//            );
-//        } catch (IOException ex) {
-//            // do something
-//        }
+        
         // clear the body content for the next time through.
         bodyContent.clearBody();
     }

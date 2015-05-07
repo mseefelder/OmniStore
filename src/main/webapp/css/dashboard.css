@@ -53,9 +53,14 @@ body {
     display: block;
     padding: 20px;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background: #398439;
+    background: url(https://c1.staticflickr.com/3/2864/9599276116_15c54feeca_b.jpg); /*#398439;*/
     border-right: 1px solid #eee;
   }
+}
+
+.sidebar > button{
+  color: white;
+  background-color: transparent;
 }
 
 /* Sidebar navigation */
@@ -72,6 +77,8 @@ body {
 .nav-sidebar > li > button{
   padding-right: 20px;
   padding-left: 20px;
+  color: white;
+  background-color: transparent;
 }
 
 .nav-sidebar > .active > a,

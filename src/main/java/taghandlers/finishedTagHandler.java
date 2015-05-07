@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * For the fished transaction page.
  */
 package taghandlers;
 
@@ -67,11 +65,6 @@ public class finishedTagHandler extends BodyTagSupport {
      * operations from doEndTag().
      */
     private void otherDoEndTagOperations() throws IOException {
-        // TODO: code that performs other operations in doEndTag
-        //       should be placed here.
-        //       It will be called after initializing variables,
-        //       finding the parent, setting IDREFs, etc, and
-        //       before calling shouldEvaluateRestOfPageAfterEndTag().
         JspWriter out = pageContext.getOut();
         out.println(
 "<div class=\"col-md-4 col-xs-4 col-sm-3\">\n" +

@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * For the product display tag.
  */
 package taghandlers;
 
@@ -121,8 +119,6 @@ rs.getInt("price")+" peças de ouro.</p>\n" +
         // Or else get the body content as a string and process it, e.g.:
         String bodyStr = bodyContent.getString();
         bodyStr.replace("\n", "");
-        //bodyStr.replace(" ", "");
-        //bodyStr = "";
         String productDisplay = singleProductDisplay(bodyStr);
         out.println(
 productDisplay +

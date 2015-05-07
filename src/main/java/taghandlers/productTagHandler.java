@@ -83,7 +83,7 @@ public class productTagHandler extends BodyTagSupport {
         
         displayCode = 
 "<div class=\"col-md-4 col-xs-4 col-sm-3\">\n" +
-"            <img src=\"pics/"+productName+".jpg\" class=\"img-responsive\">\n" +
+"            <img src=\"pics/"+productName+".png\" class=\"img-responsive\">\n" +
 "          </div>\n" +
 "          <div class=\"col-md-6 col-xs-5 col-sm-5\">\n" +
 "            <p>"+rs.getString("description")+"</p><p>Custo: "+

@@ -75,7 +75,7 @@ public class finishedTagHandler extends BodyTagSupport {
         JspWriter out = pageContext.getOut();
         out.println(
 "<div class=\"col-md-4 col-xs-4 col-sm-3\">\n" +
-"            <img src=\"pics/coin.png\" class=\"img-responsive\">\n" +
+"            <img src=\"pics/bruxo.png\" class=\"img-responsive\">\n" +
 "          </div>\n" +
 "          <div class=\"col-md-6 col-xs-5 col-sm-5\">\n" +
 "            <h2>Muito obrigado pela sua compra!</h2> \n"+

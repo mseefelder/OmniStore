@@ -37,10 +37,10 @@ public class finishedPageHandler implements pageHandlerInterface
         }
         else
         {
-            jspURL = "concluido.jsp";
+            jspURL = "vitrine.jsp";
         }
         
-        return "concluido.jsp";
+        return jspURL;
     }
     
 }

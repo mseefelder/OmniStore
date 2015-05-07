@@ -100,7 +100,7 @@ tempName+"\"></button>\n" +
             
             displayCode = displayCode +
                     "<div class=\" col-md-2.5 col-xs-4.5 col-sm-4 placeholder\">\n" +
-"                <input type=\"image\" src=\"pics/"+tempName.toLowerCase()+".jpg\""+
+"                <input type=\"image\" src=\"pics/"+tempName+".png\""+
                     " style=\"display: inline-block; border-radius: 25%;" +
 "  max-height: 50%; " +"  max-width: 50%;\" class=\"img-responsive\""+
                     " alt=\"Generic placeholder thumbnail\" name=\"Submit\" onclick = \"return setHidden('"+

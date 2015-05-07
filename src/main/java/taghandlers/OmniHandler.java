@@ -142,7 +142,7 @@ public class OmniHandler extends BodyTagSupport {
 "            <span class=\"icon-bar\"></span>\n" +
 "            <span class=\"icon-bar\"></span>\n" +
 "          </button>\n" +
-"          <a class=\"navbar-brand\" href=\"#\">OmniStore</a>\n" +
+"          <a class=\"navbar-brand\" href=\"#\">A Forja do Alquimista</a>\n" +
 "        </div>\n" +
 "      </div>\n" +
 "    </nav>"+
